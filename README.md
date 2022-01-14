@@ -5,7 +5,7 @@
 
 ## **1. General Description**
 
-Aerostats and camouflaged object detection system consist of 2 separate and totally different object detection and tracking algorithms:
+Aerostats and camouflaged object detection system made to propose a practical solution to identify and liquidate aerostats and camouflaged objects using a drone and a built-in laser module.
 
 - **Aerostats object detection algorithm**
 
