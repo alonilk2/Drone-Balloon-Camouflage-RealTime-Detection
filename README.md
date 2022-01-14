@@ -3,18 +3,19 @@
 
 1.1. General Description
 Aerostats and camouflaged object detection system consist of 2 separate and totally different object detection and tracking algorithms:
--1.1.1	Aerostats object detection algorithm
-The aerostats object detection algorithm is a Real-Time Machine Learning object detection algorithm, based on YoloV5 Pytorch implementation of the YoloV5 algorithm family.
+	- 1.1.1	Aerostats object detection algorithm
+	The aerostats object detection algorithm is a Real-Time Machine Learning object detection algorithm, based on YoloV5 Pytorch implementation of the YoloV5 algorithm 		family.
 
-The algorithm is capable of analyzing and inference from multiple input sources, like local image files, video files and webcam (Using an open-source library could OpenCV).
-The objects that are predicted by the algorithm are visualized in a Real-Time stream by bounding boxes that are drawn inside the frame. 
+	The algorithm is capable of analyzing and inference from multiple input sources, like local image files, video files and webcam (Using an open-source library could OpenCV).
+	The objects that are predicted by the algorithm are visualized in a Real-Time stream by bounding boxes that are drawn inside the frame. 
 
--1.1.2	Camouflaged object detection algorithm
-The camouflaged object detection algorithm is based on 13 Haralick Features, which Robert Haralick suggested in his article from 1973, and in a SVM (Support Vector Machine) model.
+	- 1.1.2	Camouflaged object detection algorithm
+	The camouflaged object detection algorithm is based on 13 Haralick Features, which Robert Haralick suggested in his article from 1973, and in a SVM (Support Vector Machine) model.
 
-The algorithm is capable of analyzing and inference from images and videos.
-The objects that are predicted by the algorithm are visualized in a stream by mask object that is drawn inside the frame, and over the detected object. 
--1.2 How to use
+	The algorithm is capable of analyzing and inference from images and videos.
+	The objects that are predicted by the algorithm are visualized in a stream by mask object that is drawn inside the frame, and over the detected object. 
+	
+- 1.2 How to use
 
 Inside the project's root folder, 'Balloon-Camouflage-Detection', there is the main GUI component, called 'Demo_Dashboard'.
 Edit 'Demo_Dashboard' as follows:
