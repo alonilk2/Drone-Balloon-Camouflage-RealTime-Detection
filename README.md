@@ -1,10 +1,10 @@
 # Drone-Balloon-Camouflage-RealTime-Detection
 
 **General Description**
+
 	Aerostats and camouflaged object detection system consist of 2 separate and totally different object detection and tracking algorithms:
 	**Aerostats object detection algorithm**
 	The aerostats object detection algorithm is a Real-Time Machine Learning object detection algorithm, based on YoloV5 Pytorch implementation of the YoloV5 algorithm 		family.
-
 	The algorithm is capable of analyzing and inference from multiple input sources, like local image files, video files and webcam (Using an open-source library could OpenCV).
 	The objects that are predicted by the algorithm are visualized in a Real-Time stream by bounding boxes that are drawn inside the frame. 
 
@@ -18,6 +18,7 @@
 
 Inside the project's root folder, 'Balloon-Camouflage-Detection', there is the main GUI component, called 'Demo_Dashboard'.
 Edit 'Demo_Dashboard' as follows:
+
 1)	In line 56, change first argument of 'subprocess.call' to the following command, after changing the red paths to the correct paths on your local machine:
 `[PYTHON_PATH]/python.exe [PATH_TO_FOLDER]/Drone-Balloon-Camouflage-RealTime-Detection/yolov51/detect.py --source 0 --weights [PATH_TO_FOLDER]/Drone-Balloon-Camouflage-RealTime-Detection/yolov51/best.pt --conf-thres 0.7 --half --dnn`
 
