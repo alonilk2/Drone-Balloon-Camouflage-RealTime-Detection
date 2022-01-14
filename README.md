@@ -34,9 +34,9 @@ Edit 'Demo_Dashboard' as follows:
 	
 3)	Install dependencies:
 
-Make sure 'PIP' package is installed.
-Open PowerShell from 'yolov51' folder and execute:
-`pip install -r requirements.txt`
+	Make sure 'PIP' package is installed.
+	Open PowerShell from 'yolov51' folder and execute:
+	`pip install -r requirements.txt`
 
 4) Run 'Demo_Dashboard.py', and choose the algorithm you want to fire:
 ![Dashboard](https://eamobileisrael.com/demodash.png)
