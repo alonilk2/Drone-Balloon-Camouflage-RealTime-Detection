@@ -1,12 +1,12 @@
 # Drone-Balloon-Camouflage-RealTime-Detection
 
-**General Description**
+**1. General Description**
 
 Aerostats and camouflaged object detection system consist of 2 separate and totally different object detection and tracking algorithms:
 
 - **Aerostats object detection algorithm**
 
-	The aerostats object detection algorithm is a Real-Time Machine Learning object detection algorithm, based on YoloV5 Pytorch implementation of the YoloV5 algorithm 		family.
+	The aerostats object detection algorithm is a Real-Time object detection algorithm, based on YoloV5 Pytorch implementation of the YoloV5 algorithm 		family.
 	The algorithm is capable of analyzing and inference from multiple input sources, like local image files, video files and webcam (Using an open-source library could OpenCV).
 	The objects that are predicted by the algorithm are visualized in a Real-Time stream by bounding boxes that are drawn inside the frame. 
 
