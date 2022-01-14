@@ -1,0 +1,13 @@
+﻿  CppCLR_WinformsProjekt.cpp
+C:\Users\Alon\Desktop\פרויקט\CppCLR_WinformsProjekt1\CppCLR_WinformsProjekt1\Form1.h(265,21): warning C4101: 'max': unreferenced local variable
+C:\Users\Alon\Desktop\פרויקט\CppCLR_WinformsProjekt1\CppCLR_WinformsProjekt1\Form1.h(264,13): warning C4101: 'N': unreferenced local variable
+C:\Users\Alon\Desktop\פרויקט\CppCLR_WinformsProjekt1\CppCLR_WinformsProjekt1\Form1.h(265,16): warning C4101: 'min': unreferenced local variable
+C:\Users\Alon\Desktop\פרויקט\CppCLR_WinformsProjekt1\CppCLR_WinformsProjekt1\Form1.h(506,38): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\Alon\Desktop\פרויקט\CppCLR_WinformsProjekt1\CppCLR_WinformsProjekt1\Form1.h(582,44): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\Alon\Desktop\פרויקט\CppCLR_WinformsProjekt1\CppCLR_WinformsProjekt1\Form1.h(479,61): warning C4101: 'temp': unreferenced local variable
+C:\Users\Alon\Desktop\פרויקט\CppCLR_WinformsProjekt1\CppCLR_WinformsProjekt1\Form1.h(485,14): warning C4101: 'str': unreferenced local variable
+C:\Users\Alon\Desktop\darknet\darknet\vcpkg_installed\x64-windows\include\opencv2\core\cuda.inl.hpp(105): warning C4793: 'cv::cuda::GpuMat::GpuMat': function compiled as native:
+  	Found an intrinsic not supported in managed code
+C:\Users\Alon\Desktop\darknet\darknet\vcpkg_installed\x64-windows\include\opencv2\core\cuda.inl.hpp(487): warning C4793: 'cv::cuda::HostMem::HostMem': function compiled as native:
+  	Found an intrinsic not supported in managed code
+  CppCLR_WinformsProjekt1.vcxproj -> C:\Users\Alon\Desktop\פרויקט\CppCLR_WinformsProjekt1\x64\Release\CppCLR_WinformsProjekt1.exe

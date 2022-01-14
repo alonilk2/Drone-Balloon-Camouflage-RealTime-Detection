@@ -1,0 +1,10 @@
+C:\Users\H\source\repos\CppCLR_WinformsProjekt1\CppCLR_WinformsProjekt1\x64\Release\CppCLR_WinformsProjekt1.vcxproj.AssemblyReference.cache
+C:\Users\H\source\repos\CppCLR_WinformsProjekt1\CppCLR_WinformsProjekt1\x64\Release\CppCLR_WinformsProjekt1.Form1.resources
+C:\Users\H\source\repos\CppCLR_WinformsProjekt1\CppCLR_WinformsProjekt1\x64\Release\CppCLR_WinformsProjekt1.vcxproj.GenerateResource.cache
+C:\Users\H\source\repos\CppCLR_WinformsProjekt1\CppCLR_WinformsProjekt1\x64\Release\CppCLR_WinformsProjekt1.MyForm.resources
+C:\Users\Alon\Desktop\פרויקט\CppCLR_WinformsProjekt1\x64\Release\opencv_world452.dll
+C:\Users\Alon\Desktop\פרויקט\CppCLR_WinformsProjekt1\x64\Release\cudnn64_8.dll
+C:\Users\Alon\Desktop\פרויקט\CppCLR_WinformsProjekt1\CppCLR_WinformsProjekt1\x64\Release\CppCLR_WinformsProjekt1.vcxproj.AssemblyReference.cache
+C:\Users\Alon\Desktop\פרויקט\CppCLR_WinformsProjekt1\CppCLR_WinformsProjekt1\x64\Release\CppCLR_WinformsProjekt1.Form1.resources
+C:\Users\Alon\Desktop\פרויקט\CppCLR_WinformsProjekt1\CppCLR_WinformsProjekt1\x64\Release\CppCLR_WinformsProjekt1.MyForm.resources
+C:\Users\Alon\Desktop\פרויקט\CppCLR_WinformsProjekt1\CppCLR_WinformsProjekt1\x64\Release\CppCLR_WinformsProjekt1.vcxproj.GenerateResource.cache

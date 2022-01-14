@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project>
+  <ProjectOutputs>
+    <ProjectOutput>
+      <FullPath>C:\Users\Alon\Desktop\פרויקט\CppCLR_WinformsProjekt1\x64\Release\CppCLR_WinformsProjekt1.exe</FullPath>
+    </ProjectOutput>
+  </ProjectOutputs>
+  <ContentFiles>
+    <ContentFile>
+      <FullPath>C:\Users\Opencv\build\bin\cudnn64_8.dll</FullPath>
+    </ContentFile>
+    <ContentFile>
+      <FullPath>C:\Users\Opencv\build\bin\Release\opencv_world452.dll</FullPath>
+    </ContentFile>
+  </ContentFiles>
+  <SatelliteDlls />
+  <NonRecipeFileRefs />
+</Project>
