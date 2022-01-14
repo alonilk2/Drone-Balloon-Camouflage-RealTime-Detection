@@ -1,6 +1,9 @@
 # Drone-Balloon-Camouflage-RealTime-Detection
 
-**1. General Description**
+![Dashboard](https://eamobileisrael.com/demowin.png)
+
+
+## **1. General Description**
 
 Aerostats and camouflaged object detection system consist of 2 separate and totally different object detection and tracking algorithms:
 
@@ -17,7 +20,7 @@ Aerostats and camouflaged object detection system consist of 2 separate and tota
 	The algorithm is capable of analyzing and inference from images and videos.
 	The objects that are predicted by the algorithm are visualized in a stream by mask object that is drawn inside the frame, and over the detected object. 
 	
-**2. How to use**
+## **2. How to use**
 
 Inside the project's root folder, 'Balloon-Camouflage-Detection', there is the main GUI component, called 'Demo_Dashboard'.
 Edit 'Demo_Dashboard' as follows:
