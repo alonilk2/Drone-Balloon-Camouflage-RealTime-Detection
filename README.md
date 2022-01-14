@@ -3,7 +3,7 @@
 ![Dashboard](https://eamobileisrael.com/demowin.png)
 
 
-## **1. General Description**
+## **General Description**
 
 Aerostats and camouflaged object detection system made to propose a practical solution to identify and liquidate aerostats and camouflaged objects using a drone and a built-in laser module.
 
@@ -20,7 +20,7 @@ Aerostats and camouflaged object detection system made to propose a practical so
 	The algorithm is capable of analyzing and inference from images and videos.
 	The objects that are predicted by the algorithm are visualized in a stream by mask object that is drawn inside the frame, and over the detected object. 
 	
-## **2. How to use**
+## **How to use**
 
 Inside the project's root folder, 'Balloon-Camouflage-Detection', there is the main GUI component, called 'Demo_Dashboard'.
 Edit 'Demo_Dashboard' as follows:
