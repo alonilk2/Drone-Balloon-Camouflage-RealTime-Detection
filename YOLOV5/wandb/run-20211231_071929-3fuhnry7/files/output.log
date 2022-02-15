@@ -1,0 +1,63 @@
+Overriding model.yaml nc=80 with nc=1
+                 from  n    params  module                                  arguments
+  0                -1  1      5280  models.common.Conv                      [3, 48, 6, 2, 2]
+  1                -1  1     41664  models.common.Conv                      [48, 96, 3, 2]
+  2                -1  2     65280  models.common.C3                        [96, 96, 2]
+  3                -1  1    166272  models.common.Conv                      [96, 192, 3, 2]
+  4                -1  4    444672  models.common.C3                        [192, 192, 4]
+  5                -1  1    664320  models.common.Conv                      [192, 384, 3, 2]
+  6                -1  6   2512896  models.common.C3                        [384, 384, 6]
+  7                -1  1   2655744  models.common.Conv                      [384, 768, 3, 2]
+  8                -1  2   4134912  models.common.C3                        [768, 768, 2]
+  9                -1  1   1476864  models.common.SPPF                      [768, 768, 5]
+ 10                -1  1    295680  models.common.Conv                      [768, 384, 1, 1]
+ 11                -1  1         0  torch.nn.modules.upsampling.Upsample    [None, 2, 'nearest']
+ 12           [-1, 6]  1         0  models.common.Concat                    [1]
+ 13                -1  2   1182720  models.common.C3                        [768, 384, 2, False]
+ 14                -1  1     74112  models.common.Conv                      [384, 192, 1, 1]
+ 15                -1  1         0  torch.nn.modules.upsampling.Upsample    [None, 2, 'nearest']
+ 16           [-1, 4]  1         0  models.common.Concat                    [1]
+ 17                -1  2    296448  models.common.C3                        [384, 192, 2, False]
+ 18                -1  1    332160  models.common.Conv                      [192, 192, 3, 2]
+ 19          [-1, 14]  1         0  models.common.Concat                    [1]
+ 20                -1  2   1035264  models.common.C3                        [384, 384, 2, False]
+ 21                -1  1   1327872  models.common.Conv                      [384, 384, 3, 2]
+ 22          [-1, 10]  1         0  models.common.Concat                    [1]
+ 23                -1  2   4134912  models.common.C3                        [768, 768, 2, False]
+ 24      [17, 20, 23]  1     24246  models.yolo.Detect                      [1, [[10, 13, 16, 30, 33, 23], [30, 61, 62, 45, 59, 119], [116, 90, 156, 198, 373, 326]], [192, 384, 768]]
+Model Summary: 369 layers, 20871318 parameters, 20871318 gradients, 48.0 GFLOPs
+Transferred 474/481 items from yolov5m.pt
+Scaled weight_decay = 0.0005
+[34m[1moptimizer:[39m[22m SGD with parameter groups 79 weight, 82 weight (no decay), 82 bias
+[34m[1mtrain: [39m[22mScanning '..\train\labels.cache' images and labels... 206 found, 0 missing, 0 empty, 0 corrupted: 100%|████████████████████████████████████████████████████████████████████████| 206/206 [00:00<?, ?it/s]
+[34m[1mtrain: [39m[22mScanning '..\train\labels.cache' images and labels... 206 found, 0 missing, 0 empty, 0 corrupted: 100%|████████████████████████████████████████████████████████████████████████| 206/206 [00:04<?, ?it/s]
+[34m[1mval: [39m[22mScanning '..\valid\labels.cache' images and labels... 23 found, 0 missing, 0 empty, 0 corrupted: 100%|█████████████████████████████████████████████████████████████████████████████| 23/23 [00:00<?, ?it/s]
+[34m[1mAutoAnchor: [39m[22m1.40 anchors/target, 1.000 Best Possible Recall (BPR). Current anchors are a good fit to dataset
+Image sizes 640 train, 640 val
+Using 1 dataloader workers
+Logging results to [1mruns\train\yolo_balloon6
+Starting training for 100 epochs...
+     Epoch   gpu_mem       box       obj       cls    labels  img_size
+
+
+
+      0/99     10.4G   0.07766   0.02688         0        45       640: 100%|██████████| 7/7 [00:13<00:00,  1.99s/it]
+               Class     Images     Labels          P          R     mAP@.5 mAP@.5:.95:   0%|          | 0/1 [00:00<?, ?it/s]
+Traceback (most recent call last):
+  File "c:/Users/Alon/yolov51/train.py", line 627, in <module>
+    main(opt)
+  File "c:/Users/Alon/yolov51/train.py", line 524, in main
+    train(opt.hyp, opt, device, callbacks)
+  File "c:/Users/Alon/yolov51/train.py", line 358, in train
+    results, maps, _ = val.run(data_dict,
+  File "C:\Users\Alon\anaconda3\lib\site-packages\torch\autograd\grad_mode.py", line 28, in decorate_context
+    return func(*args, **kwargs)
+  File "c:\Users\Alon\yolov51\val.py", line 191, in run
+    out = non_max_suppression(out, conf_thres, iou_thres, labels=lb, multi_label=True, agnostic=single_cls)
+  File "c:\Users\Alon\yolov51\utils\general.py", line 722, in non_max_suppression
+    i = torchvision.ops.nms(boxes, scores, iou_thres)  # NMS
+  File "C:\Users\Alon\anaconda3\lib\site-packages\torchvision\ops\boxes.py", line 35, in nms
+    return torch.ops.torchvision.nms(boxes, scores, iou_threshold)
+RuntimeError: CUDA error: out of memory
+CUDA kernel errors might be asynchronously reported at some other API call,so the stacktrace below might be incorrect.
+For debugging consider passing CUDA_LAUNCH_BLOCKING=1.

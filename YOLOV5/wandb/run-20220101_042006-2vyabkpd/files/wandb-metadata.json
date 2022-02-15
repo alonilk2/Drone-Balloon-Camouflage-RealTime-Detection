@@ -1,0 +1,41 @@
+{
+    "os": "Windows-10-10.0.22523-SP0",
+    "python": "3.8.5",
+    "heartbeatAt": "2022-01-01T02:20:13.054357",
+    "startedAt": "2022-01-01T02:20:06.934100",
+    "docker": null,
+    "gpu": "NVIDIA GeForce RTX 3060",
+    "gpu_count": 1,
+    "cpu_count": 12,
+    "cuda": null,
+    "args": [
+        "--img",
+        "640",
+        "--cfg",
+        "yolov5m.yaml",
+        "--batch",
+        "24",
+        "--epochs",
+        "300",
+        "--data",
+        "data.yaml",
+        "--weights",
+        "yolov5m.pt",
+        "--name",
+        "yolo_balloon1",
+        "--workers",
+        "1"
+    ],
+    "state": "running",
+    "program": "c:/Users/Alon/yolov51/train.py",
+    "codePath": "train.py",
+    "git": {
+        "remote": "https://github.com/ultralytics/yolov5.git",
+        "commit": "affa284352fa6d094d32fe2be69dbffe36bd20f8"
+    },
+    "email": "63236463+alonilk2@users.noreply.github.com",
+    "root": "C:/Users/Alon/yolov51",
+    "host": "DESKTOP-95P9PJL",
+    "username": "Alon",
+    "executable": "C:\\Users\\Alon\\anaconda3\\python.exe"
+}
