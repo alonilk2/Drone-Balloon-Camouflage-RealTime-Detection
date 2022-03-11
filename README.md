@@ -15,7 +15,7 @@ Aerostats and camouflaged object detection system made to propose a practical so
 
 - **Camouflaged object detection algorithm**
 
-	The camouflaged object detection algorithm is based on 13 Haralick Features, which Robert Haralick suggested in his article from 1973, and in a SVM (Support Vector Machine) model.
+	The camouflaged object detection algorithm is based on 13 Haralick Features, which Robert Haralick suggested in his article from 1973, and on a SVM (Support Vector Machine) model.
 
 	The algorithm is capable of analyzing and inference from images and videos.
 	The objects that are predicted by the algorithm are visualized in a stream by mask object that is drawn inside the frame, and over the detected object. 
