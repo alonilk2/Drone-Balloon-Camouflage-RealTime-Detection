@@ -9,10 +9,7 @@ Aerostats and camouflaged object detection system made to propose a practical so
 
 - **Aerostats object detection algorithm**
 
-	The aerostats object detection algorithm is a Real-Time object detection algorithm, based on YoloV5 Pytorch implementation of the YoloV5 algorithm 		family.
-	The algorithm is capable of analyzing and inference from multiple input sources, like local image files, video files and webcam (Using an open-source library could OpenCV).
-	The objects that are predicted by the algorithm are visualized in a Real-Time stream by bounding boxes that are drawn inside the frame. 
-
+	The aerostats object detection algorithm is a Real-Time object detection algorithm, based on YoloV5 Pytorch implementation. The algorithm is capable of analyzing and inference from a remote drone camera, track the identified aerostat, and point a laser beam towards the target for its liquidation in real time, using a laser module that is installed on the drone, and is controlled by Servos and Arduino.
 - **Camouflaged object detection algorithm**
 
 	The camouflaged object detection algorithm is based on 13 Haralick Features, which Robert Haralick suggested in his article from 1973, and on a SVM (Support Vector Machine) model.
