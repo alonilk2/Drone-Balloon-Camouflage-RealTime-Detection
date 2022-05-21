@@ -1,6 +1,6 @@
 # Drone-Balloon-Camouflage-RealTime-Detection
 
-![Dashboard](https://eamobileisrael.com/demowin.png)
+![Dashboard](https://alonilk2.github.io/map1/balloon.jpg)
 
 
 ## **General Description**
