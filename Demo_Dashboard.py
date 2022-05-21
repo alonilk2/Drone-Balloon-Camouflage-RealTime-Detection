@@ -1,6 +1,7 @@
 import PySimpleGUI as sg
 import datetime
 import subprocess
+import torch
 """
     Dashboard using blocks of information.
 
@@ -19,7 +20,7 @@ theme_dict = {'BACKGROUND': '#2B475D',
 
 
 now = datetime.datetime.now()
-
+print(torch.cuda.is_available())
 # sg.theme_add_new('Dashboard', theme_dict)     # if using 4.20.0.1+
 sg.LOOK_AND_FEEL_TABLE['Dashboard'] = theme_dict
 sg.theme('Dashboard')
@@ -53,6 +54,6 @@ while True:             # Event Loop
     if event == sg.WIN_CLOSED or event == 'Exit':
         break
     elif event == 'Start Aerostat Detection':
-        subprocess.call('C:/Users/Alon/anaconda3/python.exe C:/Users/Alon/Drone/Balloon-Camouflage-Detection/yolov51/detect.py --source 0 --weights C:/Users/Alon/Drone/Balloon-Camouflage-Detection/yolov51/best.pt --conf-thres 0.7 --half --dnn ', shell=True)
+        subprocess.call('C:/Python310/python.exe C:/Users/aloni/Documents/GitHub/Drone-Balloon-Camouflage-RealTime-Detection/YOLOV5/detect.py --source 0 --weights C:/Users/aloni/Documents/GitHub/Drone-Balloon-Camouflage-RealTime-Detection/YOLOV5/best.pt --conf-thres 0.7 --half --dnn', shell=True)
 
 window.close()

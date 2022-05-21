@@ -13,7 +13,7 @@ void setup()
 {
   Serial.begin(9600);
   servoVer.attach(5); //Attach Vertical Servo to Pin 5
-  servoHor.attach(11); //Attach Horizontal Servo to Pin 6
+  servoHor.attach(6); //Attach Horizontal Servo to Pin 6
   servoVer.write(90);
   servoHor.write(90);
 }

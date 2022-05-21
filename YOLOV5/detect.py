@@ -15,22 +15,20 @@ Usage - formats:
     $ python path/to/detect.py --weights yolov5s.pt                 # PyTorch
                                          yolov5s.torchscript        # TorchScript
                                          yolov5s.onnx               # ONNX Runtime or OpenCV DNN with --dnn
-                                         yolov5s.mlmodel            # CoreML (under development)
-                                         yolov5s_openvino_model     # OpenVINO (under development)
+                                         yolov5s.xml                # OpenVINO
+                                         yolov5s.engine             # TensorRT
+                                         yolov5s.mlmodel            # CoreML (macOS-only)
                                          yolov5s_saved_model        # TensorFlow SavedModel
-                                         yolov5s.pb                 # TensorFlow protobuf
+                                         yolov5s.pb                 # TensorFlow GraphDef
                                          yolov5s.tflite             # TensorFlow Lite
                                          yolov5s_edgetpu.tflite     # TensorFlow Edge TPU
-                                         yolov5s.engine             # TensorRT
 """
 
 import argparse
 import os
 import sys
 from pathlib import Path
-
 import serial
-import cv2
 import torch
 import torch.backends.cudnn as cudnn
 
@@ -41,24 +39,22 @@ if str(ROOT) not in sys.path:
 ROOT = Path(os.path.relpath(ROOT, Path.cwd()))  # relative
 
 from models.common import DetectMultiBackend
-from utils.datasets import IMG_FORMATS, VID_FORMATS, LoadImages, LoadStreams
-from utils.general import (LOGGER, check_file, check_img_size, check_imshow, check_requirements, colorstr,
+from utils.dataloaders import IMG_FORMATS, VID_FORMATS, LoadImages, LoadStreams
+from utils.general import (LOGGER, check_file, check_img_size, check_imshow, check_requirements, colorstr, cv2,
                            increment_path, non_max_suppression, print_args, scale_coords, strip_optimizer, xyxy2xywh)
 from utils.plots import Annotator, colors, save_one_box
 from utils.torch_utils import select_device, time_sync
 
-
 ArduinoSerial=serial.Serial('COM6',9600,timeout=0.1) # Define COM number for arduino interface
 
-
-
 @torch.no_grad()
-def run(weights=ROOT / 'best.pt',  # model.pt path(s)
+def run(
+        weights=ROOT / 'yolov5s.pt',  # model.pt path(s)
         source=ROOT / 'data/images',  # file/dir/URL/glob, 0 for webcam
-        imgsz=(1280, 1024),  # inference size (height, width)
-        conf_thres=0.7,  # confidence threshold
-        iou_thres=0.45,  # NMS IOU threshold
         data=ROOT / 'data/coco128.yaml',  # dataset.yaml path
+        imgsz=(640, 640),  # inference size (height, width)
+        conf_thres=0.25,  # confidence threshold
+        iou_thres=0.45,  # NMS IOU threshold
         max_det=1000,  # maximum detections per image
         device='',  # cuda device, i.e. 0 or 0,1,2,3 or cpu
         view_img=False,  # show results
@@ -74,12 +70,12 @@ def run(weights=ROOT / 'best.pt',  # model.pt path(s)
         project=ROOT / 'runs/detect',  # save results to project/name
         name='exp',  # save results to project/name
         exist_ok=False,  # existing project/name ok, do not increment
-        line_thickness=2,  # bounding box thickness (pixels)
+        line_thickness=3,  # bounding box thickness (pixels)
         hide_labels=False,  # hide labels
-        hide_conf=True,  # hide confidences
+        hide_conf=False,  # hide confidences
         half=False,  # use FP16 half-precision inference
-        dnn=True,  # use OpenCV DNN for ONNX inference
-        ):
+        dnn=False,  # use OpenCV DNN for ONNX inference
+):
     source = str(source)
     save_img = not nosave and not source.endswith('.txt')  # save inference images
     is_file = Path(source).suffix[1:] in (IMG_FORMATS + VID_FORMATS)
@@ -94,14 +90,9 @@ def run(weights=ROOT / 'best.pt',  # model.pt path(s)
 
     # Load model
     device = select_device(device)
-    model = DetectMultiBackend(weights, device=device, dnn=dnn, data=data)
-    stride, names, pt, jit, onnx, engine = model.stride, model.names, model.pt, model.jit, model.onnx, model.engine
+    model = DetectMultiBackend(weights, device=device, dnn=dnn, data=data, fp16=half)
+    stride, names, pt = model.stride, model.names, model.pt
     imgsz = check_img_size(imgsz, s=stride)  # check image size
-
-    # Half
-    half &= (pt or jit or engine) and device.type != 'cpu'  # half precision only supported by PyTorch on CUDA
-    if pt or jit:
-        model.model.half() if half else model.model.float()
 
     # Dataloader
     if webcam:
@@ -113,22 +104,20 @@ def run(weights=ROOT / 'best.pt',  # model.pt path(s)
         dataset = LoadImages(source, img_size=imgsz, stride=stride, auto=pt)
         bs = 1  # batch_size
     vid_path, vid_writer = [None] * bs, [None] * bs
-    
 
     # Run inference
-    model.warmup(imgsz=(1, 3, *imgsz), half=half)  # warmup
+    model.warmup(imgsz=(1 if pt else bs, 3, *imgsz))  # warmup
     dt, seen = [0.0, 0.0, 0.0], 0
     for path, im, im0s, vid_cap, s in dataset:
         t1 = time_sync()
         im = torch.from_numpy(im).to(device)
-        im = im.half() if half else im.float()  # uint8 to fp16/32
+        im = im.half() if model.fp16 else im.float()  # uint8 to fp16/32
         im /= 255  # 0 - 255 to 0.0 - 1.0
         if len(im.shape) == 3:
             im = im[None]  # expand for batch dim
         t2 = time_sync()
         dt[0] += t2 - t1
 
-        
         # Inference
         visualize = increment_path(save_dir / Path(path).stem, mkdir=True) if visualize else False
         pred = model(im, augment=augment, visualize=visualize)
@@ -142,13 +131,10 @@ def run(weights=ROOT / 'best.pt',  # model.pt path(s)
         # Second-stage classifier (optional)
         # pred = utils.general.apply_classifier(pred, classifier_model, im, im0s)
 
-        print("\n")
-
         # Process predictions
         for i, det in enumerate(pred):  # per image
             seen += 1
             if webcam:  # batch_size >= 1
-                cv2.imshow('before', im0s[i].copy())
                 p, im0, frame = path[i], im0s[i].copy(), dataset.count
                 s += f'{i}: '
             else:
@@ -164,10 +150,6 @@ def run(weights=ROOT / 'best.pt',  # model.pt path(s)
             if len(det):
                 # Rescale boxes from img_size to im0 size
                 det[:, :4] = scale_coords(im.shape[2:], det[:, :4], im0.shape).round()
-                # xywh1 = (xyxy2xywh(torch.tensor(det[:, :4]).view(1, 4)) / gn).view(-1).tolist()  # normalized xywh
-                # print("[", end =" ")
-                # print(*xywh1, end =" ")
-                # print("]")
                 xx = int(det[0,0].item()+(det[0,0].item()+det[0,3].item()))/2
                 yy = int(det[0,1].item()+(det[0,1].item()+det[0,2].item()))/2
                 xx = int(xx)
@@ -179,43 +161,25 @@ def run(weights=ROOT / 'best.pt',  # model.pt path(s)
                 for c in det[:, -1].unique():
                     n = (det[:, -1] == c).sum()  # detections per class
                     s += f"{n} {names[int(c)]}{'s' * (n > 1)}, "  # add to string
-                # ins = det[0,0].item() if isinstance(det[0,0], torch.Tensor) else None
-                # print(ins)
+
                 # Write results
                 for *xyxy, conf, cls in reversed(det):
                     if save_txt:  # Write to file
                         xywh = (xyxy2xywh(torch.tensor(xyxy).view(1, 4)) / gn).view(-1).tolist()  # normalized xywh
-
                         line = (cls, *xywh, conf) if save_conf else (cls, *xywh)  # label format
-                        with open(txt_path + '.txt', 'a') as f:
+                        with open(f'{txt_path}.txt', 'a') as f:
                             f.write(('%g ' * len(line)).rstrip() % line + '\n')
 
                     if save_img or save_crop or view_img:  # Add bbox to image
-                        # xywh = (xyxy2xywh(torch.tensor(xyxy).view(1, 4))).view(-1).tolist()  # normalized xyw
-
-                        #print(xywh[0])
-                        #print(torch.div(x+w,2,rounding_mode='floor'))
-
-                        
                         c = int(cls)  # integer class
                         label = None if hide_labels else (names[c] if hide_conf else f'{names[c]} {conf:.2f}')
                         annotator.box_label(xyxy, label, color=colors(c, True))
-                        # print(*xywh)
-                        # print(*xyxy)
-                        if save_crop:
-                            save_one_box(xyxy, imc, file=save_dir / 'crops' / names[c] / f'{p.stem}.jpg', BGR=True)
+                    if save_crop:
+                        save_one_box(xyxy, imc, file=save_dir / 'crops' / names[c] / f'{p.stem}.jpg', BGR=True)
 
-            print("\n")
-
-            # Print time (inference-only)
-            LOGGER.info(f'{s}Done. ({t3 - t2:.3f}s) FPS: {1/(t3-t2):.2f}')
-            
-
-            
             # Stream results
             im0 = annotator.result()
             if view_img:
-                # print(p)
                 cv2.imshow(str(p), im0)
                 cv2.waitKey(1)  # 1 millisecond
 
@@ -234,10 +198,13 @@ def run(weights=ROOT / 'best.pt',  # model.pt path(s)
                             h = int(vid_cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
                         else:  # stream
                             fps, w, h = 30, im0.shape[1], im0.shape[0]
-                            save_path += '.mp4'
+                        save_path = str(Path(save_path).with_suffix('.mp4'))  # force *.mp4 suffix on results videos
                         vid_writer[i] = cv2.VideoWriter(save_path, cv2.VideoWriter_fourcc(*'mp4v'), fps, (w, h))
                     vid_writer[i].write(im0)
-        print("\n")
+
+        # Print time (inference-only)
+        LOGGER.info(f'{s}Done. ({t3 - t2:.3f}s)')
+
     # Print results
     t = tuple(x / seen * 1E3 for x in dt)  # speeds per image
     LOGGER.info(f'Speed: %.1fms pre-process, %.1fms inference, %.1fms NMS per image at shape {(1, 3, *imgsz)}' % t)
@@ -276,10 +243,9 @@ def parse_opt():
     parser.add_argument('--hide-conf', default=False, action='store_true', help='hide confidences')
     parser.add_argument('--half', action='store_true', help='use FP16 half-precision inference')
     parser.add_argument('--dnn', action='store_true', help='use OpenCV DNN for ONNX inference')
-
     opt = parser.parse_args()
     opt.imgsz *= 2 if len(opt.imgsz) == 1 else 1  # expand
-    print_args(FILE.stem, opt)
+    print_args(vars(opt))
     return opt
 
 
